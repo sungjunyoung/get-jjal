@@ -3,14 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.17.2",
     "classnames": "^2.2.5",
     "express": "^4.15.3",
     "history": "^4.6.1",
+    "material-ui": "^0.18.1",
+    "moment": "^2.18.1",
     "morgan": "^1.8.2",
+    "mysql": "^2.13.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-router": "^4.1.1"
+    "react-facebook-login": "^3.6.1",
+    "react-icons": "^2.2.5",
+    "react-router": "^4.1.1",
+    "react-tap-event-plugin": "^2.0.1"
   },
   "devDependencies": {
     "react-scripts": "1.0.7"

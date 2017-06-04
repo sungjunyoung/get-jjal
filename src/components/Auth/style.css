@@ -1,0 +1,15 @@
+/**
+ * Created by junyoung on 2017. 6. 2..
+ */
+.facebook-login {
+    width: 300px;
+    margin-top: 10px;
+    height: 36px;
+    border-radius: 2px;
+    top: 0;
+    background-color: #3B5998;
+    color: white;
+    border: 0;
+    font-size: 13px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+}

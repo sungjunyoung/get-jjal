@@ -5,11 +5,14 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 
+
 const app = express();
 
 // APIs
 const users = require('../apis/users');
 const jjals = require('../apis/jjals');
+
+// API Routing
 app.use('/users', users);
 app.use('/jjals', jjals);
 
