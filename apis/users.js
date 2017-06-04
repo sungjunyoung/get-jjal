@@ -72,9 +72,9 @@ router.post('/', function (req, res, next) {
         // 일반 로그인일 때
 
         // 예외처리
-        if (req.body.username.length < 10) {
+        if (req.body.username.length < 6) {
             res.status(400);
-            res.json({code: 'ID_LENGTH', message: '닉네임 길이제한 10자'});
+            res.json({code: 'ID_LENGTH', message: '닉네임 길이제한 6자'});
         }
         if (req.body.password.length < 8) {
             res.status(400);
