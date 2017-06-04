@@ -18,3 +18,15 @@ node server
 ```
 npm start
 ```
+
+#### ADD CONFIG FILES
+
+`/config` 폴더 생성 후 내부에 `mysql.json` 파일 생성
+```json
+{
+  "host": "HOST",
+  "user": "USER",
+  "password": "PASSWORD",
+  "database": "get-jjal"
+}
+```
