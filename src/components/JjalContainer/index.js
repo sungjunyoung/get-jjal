@@ -21,6 +21,8 @@ export default class JjalContainer extends Component {
             containerWidth = this.state.windowWidth / 4 - 10;
         } else if(this.state.windowWidth > 400){
             containerWidth = this.state.windowWidth / 3 - 10;
+        } else {
+            containerWidth = this.state.windowWidth / 2 - 10;
         }
 
         return (

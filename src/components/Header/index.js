@@ -25,7 +25,7 @@ export default class Header extends Component {
         return (
             <div className="Header" style={{
                 position: 'fixed', height: 60, width: '100%',
-                opacity: 0.9, top: 0, left: 0,
+                opacity: 0.93, top: 0, left: 0,
                 textAlign: 'left',
                 backgroundColor:'white'
             }}>

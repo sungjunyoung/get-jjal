@@ -13,7 +13,7 @@ class App extends Component {
         super(props);
         this.state = {
             userId: sessionStorage.getItem('userId'),
-            menuName: '내 짤방',
+            menuName: sessionStorage.getItem('menuName'),
             userInfo: {},
         };
     }
