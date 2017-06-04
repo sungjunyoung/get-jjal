@@ -21,12 +21,13 @@ router.use(cookieParser());
 
 // 유저 관련 API
 
-
-// 유저 세션 얻기
-router.get('/session', function (req, res, next) {
-    res.status(200);
-    console.log(req.session);
-    res.json(req.session);
+// 아이디에 해당하는 유저 정보 얻기
+router.get('/:userId', function (req, res, next) {
+    mysql.query('SELECT * FROM gj_users WHERE id = ?', req.param('userId'))
+        .spread(function(rows){
+            const userInfo = rows[0];
+            res.json(userInfo);
+        })
 });
 
 // 유저 등록 / 로그인
@@ -99,7 +100,7 @@ router.post('/', function (req, res, next) {
                         return true;
                     } else {
                         // 패스워드 불일치
-                        throw 'PW_INVAILD';
+                        throw 'PW_INVALID';
                     }
                 } else {
                     // 새로 등록하는 유저
@@ -115,11 +116,11 @@ router.post('/', function (req, res, next) {
                 res.json({code: 'SUCCESS', message: '로그인/회원가입 완료', userId: rows[0].id});
             })
             .catch(function (err) {
-                console.log(err);
-                if (err === 'PW_INVAILD') {
+                if (err === 'PW_INVALID') {
                     res.status(400);
                     res.json({code: err, message: '패스워드 불일치'});
                 } else {
+                    console.log(err);
                     res.status(500);
                     res.json({code: 'DB_ERR', message: '데이터베이스 에러'});
                 }
