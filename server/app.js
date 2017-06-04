@@ -4,7 +4,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const session = require('express-session');
 const app = express();
 
 // APIs
