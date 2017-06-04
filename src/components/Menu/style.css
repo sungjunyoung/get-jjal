@@ -1,0 +1,28 @@
+/**
+ * Created by junyoung on 2017. 6. 2..
+ */
+.menu_m {
+    margin-top: 15px;
+    font-family: BMDOHYEON;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.menu_m.logout {
+    color: darkred;
+}
+
+.menu_h {
+    font-family: BMDOHYEON;
+    font-size: 40px;
+}
+
+.menu_login_info {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-family: BMDOHYEON;
+    font-size: 13px;
+    color: white;
+    margin: 0px 0px 10px 10px;
+}

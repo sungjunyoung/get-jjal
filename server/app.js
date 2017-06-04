@@ -11,14 +11,6 @@ const app = express();
 const users = require('../apis/users');
 const jjals = require('../apis/jjals');
 
-
-const sessConfig = require('../config/session.json');
-app.use(session({
-    secret: sessConfig.key,
-    saveUninitialized: true,
-    resave: false
-}));
-
 // API Routing
 app.use('/users', users);
 app.use('/jjals', jjals);

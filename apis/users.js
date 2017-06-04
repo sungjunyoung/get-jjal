@@ -23,7 +23,7 @@ router.use(cookieParser());
 
 // 아이디에 해당하는 유저 정보 얻기
 router.get('/:userId', function (req, res, next) {
-    mysql.query('SELECT * FROM gj_users WHERE id = ?', req.param('userId'))
+    mysql.query('SELECT * FROM gj_users WHERE id = ?', req.params.userId)
         .spread(function(rows){
             const userInfo = rows[0];
             res.json(userInfo);

@@ -6,9 +6,18 @@ import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton';
 import FacebookLogin from 'react-facebook-login';
+import AlertContainer from 'react-alert'
 
 
 export default class Auth extends Component {
+
+    alertOptions = {
+        offset: 14,
+        position: 'bottom left',
+        theme: 'light',
+        time: 5000,
+        transition: 'scale'
+    };
 
     constructor(props) {
         super(props);
@@ -20,6 +29,13 @@ export default class Auth extends Component {
         }
     }
 
+    showAlert(type, message) {
+        this.msg.show(message, {
+            time: 2000,
+            type: type,
+        })
+    }
+
     componentDidMount() {
         let {clientHeight, clientWidth} = this.refs.form;
         this.setState({formHeight: clientHeight, formWidth: clientWidth})
@@ -28,7 +44,6 @@ export default class Auth extends Component {
     responseFacebook(response) {
         const component = this;
         if (response.name) {
-            var fbResponse = response;
             response.loginType = 'facebook';
             fetch('/users', {
                 method: 'POST',
@@ -40,8 +55,8 @@ export default class Auth extends Component {
             }).then((response) => response.json())
                 .then((response) => {
                     console.log(response);
-                    if(response.code === 'SUCCESS'){
-                        localStorage.setItem("userId",response.userId);
+                    if (response.code === 'SUCCESS') {
+                        sessionStorage.setItem("userId", response.userId);
 
                         component.props.history.push('/');
                     } else {
@@ -82,12 +97,20 @@ export default class Auth extends Component {
         }).then((response) => response.json())
             .then((response) => {
                 console.log(response);
-                if(response.code === 'SUCCESS'){
-                    localStorage.setItem("userId",response.userId);
+                if (response.code === 'SUCCESS') {
+                    sessionStorage.setItem("userId", response.userId);
 
                     component.props.history.push('/');
                 } else {
-                    // 로그인 실패
+                    if(response.code === 'ID_LENGTH')
+                        component.showAlert('error', '닉네임은 6자 이상 입력해주세요!');
+                    else if(response.code === 'PW_LENGTH')
+                        component.showAlert('error', '패스워드는 8자 이상 입력해주세요!');
+                    else if(response.code === 'PW_INVALID')
+                        component.showAlert('error', '패스워드를 다시 확인해주세요!');
+                    else if(response.code === 'DB_ERR')
+                        component.showAlert('error', '데이터베이스 에러가 발생했습니다!');
+
                 }
 
             });
@@ -96,6 +119,7 @@ export default class Auth extends Component {
     render() {
         return (
             <div className="auth">
+                <AlertContainer ref={a => this.msg = a}{...this.alertOptions}/>
                 <div ref="form" style={{
                     display: 'inline-block', position: 'absolute',
                     top: '50%', left: '50%',
