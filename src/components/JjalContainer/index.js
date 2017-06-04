@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {WindowResizeListener} from 'react-window-resize-listener'
-
+import StarBorder from 'material-ui/svg-icons/toggle/star-border'
+import Star from 'material-ui/svg-icons/toggle/star'
 import './style.css';
 
 export default class JjalContainer extends Component {
@@ -9,8 +10,62 @@ export default class JjalContainer extends Component {
         super(props);
         this.state = {
             windowWidth: '0',
-            windowHeight: '0'
+            windowHeight: '0',
+            username: '',
+            isLike: false
         };
+    }
+
+    componentDidMount() {
+        console.log(this.props.jjal.own_user_id);
+        fetch('/users/' + this.props.jjal.own_user_id, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => response.json())
+            .then((response) => {
+                this.setState({username: response.username});
+            });
+
+        fetch('/users/' + sessionStorage.getItem('userId') +
+            '/jjals/' + this.props.jjal.id + '/like', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => response.json())
+            .then((response) => {
+                if (response.result)
+                    this.setState({isLike: true})
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    onLike() {
+        var container = this;
+        fetch('/users/' + sessionStorage.getItem('userId') +
+            '/jjals/' + this.props.jjal.id + '/like?flag=' + !this.state.isLike, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user_id: sessionStorage.getItem('userId'),
+                jjal_id: this.props.jjal.id
+            })
+        }).then((response) => response.json())
+            .then((response) => {
+                container.setState({isLike: !container.state.isLike})
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     render() {
@@ -45,12 +100,29 @@ export default class JjalContainer extends Component {
                     <div style={Object.assign({width: containerWidth - 12}, {
                         position: 'absolute',
                         bottom: 0, right: 0,
-                        height: 20,
+                        height: 30,
                         backgroundColor: 'black',
                         opacity: 0.8, color: 'white',
-                        padding: 6, textAlign: 'right'
+                        padding: 6
                     })}>
-                        {this.props.jjal.own_user_id}
+                        <div onClick={this.onLike.bind(this)} style={{
+                            height: 29,
+                            width: '40%', textAlign: 'left',
+                            float: 'left'
+                        }}>
+                            {this.state.isLike ?
+                                <Star color="white"/> : <StarBorder color="white"/>}
+
+                        </div>
+                        <div style={{
+                            height: 29,
+                            paddingTop: 5,
+                            width: '60%', textAlign: 'right',
+                            float: 'left'
+                        }}>
+                            {this.state.username}
+                        </div>
+
                     </div>
                 </div>
                 <div className="imageDesc">

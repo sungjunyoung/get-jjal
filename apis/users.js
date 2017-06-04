@@ -22,9 +22,62 @@ router.use(bodyParser.json());
 // 아이디에 해당하는 유저 정보 얻기
 router.get('/:userId', function (req, res, next) {
     mysql.query('SELECT * FROM gj_users WHERE id = ?', req.params.userId)
-        .spread(function(rows){
+        .spread(function (rows) {
             const userInfo = rows[0];
             res.json(userInfo);
+        })
+});
+
+// 유저 짤방 좋아요 / 해제 (쿼리파라미터에 따라서)
+// ?flag=true : 좋아요 / ?flag=false : 해제
+router.post('/:userId/jjals/:jjalId/like', function (req, res, next) {
+    var userLike = req.body;
+    var flag = req.query.flag;
+
+    if (flag === 'true') {
+        userLike.created_at = moment().format('YYYY-MM-DD HH:mm:ss');
+        mysql.query('INSERT INTO gj_user_likes SET ?', userLike)
+            .then(function () {
+                res.status(201);
+                res.json({code: 'SUCCESS', message: '좋아요 성공'});
+            })
+            .catch(function (err) {
+                console.log(err);
+                res.status(500);
+                res.json({code: 'DB_ERR', message: '데이터베이스 에러'});
+            })
+    } else {
+        mysql.query('DELETE FROM gj_user_likes ' +
+            'WHERE user_id = ? AND jjal_id = ?', [userLike.user_id, userLike.jjal_id])
+            .then(function () {
+                res.status(201);
+                res.json({code: 'SUCCESS', message: '삭제 성공'});
+            })
+            .catch(function (err) {
+                console.log(err);
+                res.status(500);
+                res.json({code: 'DB_ERR', message: '데이터베이스 에러'});
+            })
+    }
+
+});
+
+// 유저가 해당 짤방을 좋아요 했는지 아닌지 확인
+router.get('/:userId/jjals/:jjalId/like', function (req, res, next) {
+    mysql.query('SELECT * FROM gj_user_likes WHERE user_id = ? AND jjal_id = ?',
+        [req.params.userId, req.params.jjalId])
+        .spread(function (rows) {
+            var isLike = false;
+            if (rows.length > 0) {
+                isLike = true;
+            }
+            res.status(200);
+            res.json({code: 'SUCCESS', message: '확인', result: isLike});
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.status(500);
+            res.json({code: 'DB_ERR', message: '데이터베이스 에러'});
         })
 });
 
@@ -55,7 +108,7 @@ router.post('/', function (req, res, next) {
                     return mysql.query('INSERT INTO gj_users SET ?', userInfo)
                 }
             })
-            .then(function(){
+            .then(function () {
                 return mysql.query('SELECT id FROM gj_users WHERE fb_id = ?', userInfo.fb_id)
             })
             .spread(function (rows) {
@@ -105,7 +158,7 @@ router.post('/', function (req, res, next) {
                     return mysql.query('INSERT INTO gj_users SET ?', userInfo)
                 }
             })
-            .then(function(){
+            .then(function () {
                 return mysql.query('SELECT id FROM gj_users WHERE username = ? AND password = ?',
                     [userInfo.username, userInfo.password])
             })
