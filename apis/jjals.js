@@ -25,7 +25,21 @@ router.get('/:jjalId', function (req, res, next) {
     res.send({jjalId: req.param("jjalId")})
 });
 
-//TODO 페이징
+// 유저가 올린 짤방
+router.get('/users/:userId', function(req,res,next){
+    var page = req.query.page - 1;
+    var pagingQuery = page * 30 + ', 30';
+    mysql.query('SELECT * FROM gj_jjals WHERE own_user_id = ?' +
+        ' ORDER BY created_at DESC LIMIT '+pagingQuery,req.params.userId)
+        .spread(function(rows){
+            const userJjals = {userJjals: rows};
+            res.json(userJjals);
+        })
+});
+
+router.get('/users/:userId/likes', function(req, res, next){
+});
+
 router.get('/', function (req, res, next) {
     var page = req.query.page - 1;
     var pagingQuery = page * 30 + ', 30';

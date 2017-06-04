@@ -14,15 +14,16 @@ export default class JjalContainer extends Component {
     }
 
     render() {
+
         var containerWidth;
-        if(this.state.windowWidth > 1200){
-            containerWidth = this.state.windowWidth / 5 - 10;
-        } else if(this.state.windowWidth > 900){
-            containerWidth = this.state.windowWidth / 4 - 10;
-        } else if(this.state.windowWidth > 400){
-            containerWidth = this.state.windowWidth / 3 - 10;
+        if (this.state.windowWidth > 1200) {
+            containerWidth = this.state.windowWidth / 5 - 51;
+        } else if (this.state.windowWidth > 900) {
+            containerWidth = this.state.windowWidth / 4 - 41;
+        } else if (this.state.windowWidth > 600) {
+            containerWidth = this.state.windowWidth / 3 - 31;
         } else {
-            containerWidth = this.state.windowWidth / 2 - 10;
+            containerWidth = this.state.windowWidth / 2 - 21;
         }
 
         return (
@@ -30,8 +31,8 @@ export default class JjalContainer extends Component {
                  style={{
                      display: 'inline-block',
                      width: containerWidth,
-                     height: containerWidth + 30
-
+                     margin: 5,
+                     height: containerWidth + 80,
                  }}>
                 <WindowResizeListener onResize={windowSize => {
                     this.setState({
@@ -39,10 +40,21 @@ export default class JjalContainer extends Component {
                         windowHeight: windowSize.windowHeight
                     });
                 }}/>
-                <div className="image" style={{maxWidth: '100%'}}>
-                    <img src={this.props.jjal.src} style={{
-                        maxWidth: '100%', maxHeight: '100%'
-                    }}/>
+                <div className="imageWrapper" style={{position: 'relative'}}>
+                    <img src={this.props.jjal.src} height={containerWidth}/>
+                    <div style={Object.assign({width: containerWidth - 12}, {
+                        position: 'absolute',
+                        bottom: 0, right: 0,
+                        height: 20,
+                        backgroundColor: 'black',
+                        opacity: 0.8, color: 'white',
+                        padding: 6, textAlign: 'right'
+                    })}>
+                        {this.props.jjal.own_user_id}
+                    </div>
+                </div>
+                <div className="imageDesc">
+
                 </div>
             </div>
         );
