@@ -5,6 +5,7 @@ import AlertContainer from 'react-alert'
 import './style.css';
 
 import Header from '../Header';
+import CurrentJjals from '../CurrentJjals';
 
 class App extends Component {
 
@@ -13,7 +14,7 @@ class App extends Component {
         this.state = {
             userId: sessionStorage.getItem('userId'),
             menuName: '내 짤방',
-            userInfo: {}
+            userInfo: {},
         };
     }
 
@@ -53,6 +54,21 @@ class App extends Component {
             });
     }
 
+    selectView(){
+        switch(this.state.menuName){
+            case "최근 짤방":
+                return (<CurrentJjals/>);
+                break;
+            default:
+                return(<div/>);
+                break;
+        }
+    }
+
+    onMenuChange(menuName){
+        this.setState({menuName: menuName});
+        sessionStorage.setItem('menuName', menuName);
+    }
 
     render() {
         console.log(this.state.userInfo);
@@ -62,7 +78,9 @@ class App extends Component {
                 <AlertContainer ref={a => this.msg = a}{...this.alertOptions}/>
                 <Header menuName={this.state.menuName}
                         username={this.state.userInfo.username}
-                        history={this.props.history}/>
+                        history={this.props.history}
+                        onMenuChange={this.onMenuChange.bind(this)}/>
+                {this.selectView()}
             </div>
         );
     }

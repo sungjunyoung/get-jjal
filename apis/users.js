@@ -5,7 +5,6 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const moment = require('moment');
 const mysql = require('mysql-promise')();
 const mysqlConfig = require('../config/mysql.json');
@@ -16,7 +15,6 @@ mysql.configure(mysqlConfig);
 router.use(bodyParser.urlencoded({extended: false}));
 // parse application/json
 router.use(bodyParser.json());
-router.use(cookieParser());
 
 
 // 유저 관련 API

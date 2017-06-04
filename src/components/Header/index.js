@@ -17,13 +17,17 @@ export default class Header extends Component {
             this.setState({onHambug: false}) : this.setState({onHambug: true});
     }
 
+    closeMenu(){
+        this.setState({onHambug: false});
+    }
+
     render() {
         return (
             <div className="Header" style={{
                 position: 'fixed', height: 60, width: '100%',
                 opacity: 0.9, top: 0, left: 0,
                 textAlign: 'left',
-                // backgroundColor:'#cccccc'
+                backgroundColor:'white'
             }}>
                 <div className="logo" style={{
                     fontSize: 30, margin: '12px 0 0 20px'
@@ -46,7 +50,11 @@ export default class Header extends Component {
                 </div>
 
                 {this.state.onHambug ?
-                    <Menu username={this.props.username} history={this.props.history}/> : null}
+                    <Menu username={this.props.username}
+                          history={this.props.history}
+                          onMenuChange={this.props.onMenuChange}
+                          closeMenu={this.closeMenu.bind(this)}
+                    /> : null}
             </div>
         );
     }
