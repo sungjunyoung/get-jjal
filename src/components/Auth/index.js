@@ -11,7 +11,7 @@ import FacebookLogin from 'react-facebook-login';
 export default class Auth extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             formHeight: 0,
             formWidth: 0,
@@ -26,7 +26,9 @@ export default class Auth extends Component {
     }
 
     responseFacebook(response) {
+        const component = this;
         if (response.name) {
+            var fbResponse = response;
             response.loginType = 'facebook';
             fetch('/users', {
                 method: 'POST',
@@ -37,7 +39,15 @@ export default class Auth extends Component {
                 body: JSON.stringify(response)
             }).then((response) => response.json())
                 .then((response) => {
-                    console.log(response)
+                    console.log(response);
+                    if(response.code === 'SUCCESS'){
+                        localStorage.setItem("userId",response.userId);
+
+                        component.props.history.push('/');
+                    } else {
+                        // 로그인 실패
+                    }
+
                 });
         } else {
 
@@ -60,6 +70,8 @@ export default class Auth extends Component {
         userInfo.username = id;
         userInfo.password = pw;
         userInfo.loginType = 'default';
+
+        const component = this;
         fetch('/users', {
             method: 'POST',
             headers: {
@@ -69,7 +81,15 @@ export default class Auth extends Component {
             body: JSON.stringify(userInfo)
         }).then((response) => response.json())
             .then((response) => {
-                console.log(response)
+                console.log(response);
+                if(response.code === 'SUCCESS'){
+                    localStorage.setItem("userId",response.userId);
+
+                    component.props.history.push('/');
+                } else {
+                    // 로그인 실패
+                }
+
             });
     }
 
@@ -111,7 +131,7 @@ export default class Auth extends Component {
                                 fields="name,email,picture"
                                 cssClass="facebook-login"
                                 textButton="페이스북으로 로그인"
-                                callback={this.responseFacebook}
+                                callback={this.responseFacebook.bind(this)}
                             />
                         </CardActions>
                     </Card>

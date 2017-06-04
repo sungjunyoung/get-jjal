@@ -4,13 +4,20 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-
-
+const session = require('express-session');
 const app = express();
 
 // APIs
 const users = require('../apis/users');
 const jjals = require('../apis/jjals');
+
+
+const sessConfig = require('../config/session.json');
+app.use(session({
+    secret: sessConfig.key,
+    saveUninitialized: true,
+    resave: false
+}));
 
 // API Routing
 app.use('/users', users);

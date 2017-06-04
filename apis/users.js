@@ -5,28 +5,31 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const moment = require('moment');
-
 const mysql = require('mysql-promise')();
 const mysqlConfig = require('../config/mysql.json');
+
 mysql.configure(mysqlConfig);
 
 // parse application/x-www-form-urlencoded
 router.use(bodyParser.urlencoded({extended: false}));
-
 // parse application/json
 router.use(bodyParser.json());
+router.use(cookieParser());
 
 
 // 유저 관련 API
 
-// uri : GET /users/:userId
-router.get('/:userId', function (req, res, next) {
-    // 여기에 쿼리날려서 유저검색 후 반환
-    res.send({userId: req.param("userId")})
+
+// 유저 세션 얻기
+router.get('/session', function (req, res, next) {
+    res.status(200);
+    console.log(req.session);
+    res.json(req.session);
 });
 
-// 유저 등록
+// 유저 등록 / 로그인
 router.post('/', function (req, res, next) {
     var userInfo = {};
 
@@ -53,11 +56,15 @@ router.post('/', function (req, res, next) {
                     return mysql.query('INSERT INTO gj_users SET ?', userInfo)
                 }
             })
-            .then(function () {
+            .then(function(){
+                return mysql.query('SELECT id FROM gj_users WHERE fb_id = ?', userInfo.fb_id)
+            })
+            .spread(function (rows) {
                 res.status(201);
-                res.json({code: 'SUCCESS', message: '페이스북 로그인/회원가입 완료'})
+                res.json({code: 'SUCCESS', message: '페이스북 로그인/회원가입 완료', userId: rows[0].id})
             })
             .catch(function (err) {
+                console.log(err);
                 res.status(500);
                 res.json({code: 'DB_ERR', message: '데이터베이스 에러'});
             })
@@ -87,7 +94,7 @@ router.post('/', function (req, res, next) {
             .spread(function (rows) {
                 if (rows.length > 0) {
                     // 유저 닉네임 존재
-                    if(rows[0].password === req.body.password){
+                    if (rows[0].password === req.body.password) {
                         // 패스워드도 일치
                         return true;
                     } else {
@@ -99,13 +106,17 @@ router.post('/', function (req, res, next) {
                     return mysql.query('INSERT INTO gj_users SET ?', userInfo)
                 }
             })
-            .then(function () {
+            .then(function(){
+                return mysql.query('SELECT id FROM gj_users WHERE username = ? AND password = ?',
+                    [userInfo.username, userInfo.password])
+            })
+            .spread(function (rows) {
                 res.status(201);
-                res.json({code: 'SUCCESS', message: '로그인/회원가입 완료'});
+                res.json({code: 'SUCCESS', message: '로그인/회원가입 완료', userId: rows[0].id});
             })
             .catch(function (err) {
                 console.log(err);
-                if(err === 'PW_INVAILD'){
+                if (err === 'PW_INVAILD') {
                     res.status(400);
                     res.json({code: err, message: '패스워드 불일치'});
                 } else {

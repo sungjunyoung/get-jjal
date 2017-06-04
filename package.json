@@ -5,7 +5,9 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "classnames": "^2.2.5",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
+    "express-session": "^1.15.3",
     "history": "^4.6.1",
     "material-ui": "^0.18.1",
     "moment": "^2.18.1",
@@ -17,6 +19,7 @@
     "react-dom": "^15.5.4",
     "react-facebook-login": "^3.6.1",
     "react-icons": "^2.2.5",
+    "react-localstorage": "^0.3.1",
     "react-router": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1"
   },
