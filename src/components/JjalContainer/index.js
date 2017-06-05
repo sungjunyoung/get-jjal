@@ -3,6 +3,7 @@ import {WindowResizeListener} from 'react-window-resize-listener'
 import StarBorder from 'material-ui/svg-icons/toggle/star-border'
 import Star from 'material-ui/svg-icons/toggle/star'
 import './style.css';
+import JjalDetail from '../JjalDetail';
 
 export default class JjalContainer extends Component {
 
@@ -12,7 +13,8 @@ export default class JjalContainer extends Component {
             windowWidth: '0',
             windowHeight: '0',
             username: '',
-            isLike: false
+            isLike: false,
+            isDetail: false,
         };
     }
 
@@ -68,17 +70,27 @@ export default class JjalContainer extends Component {
             });
     }
 
+    onImageClick() {
+        this.setState({isDetail: true});
+    }
+
+    onCloseDetail() {
+        this.setState({isDetail: false});
+    }
+
     render() {
 
         var containerWidth;
         if (this.state.windowWidth > 1200) {
-            containerWidth = this.state.windowWidth / 5 - 51;
+            containerWidth = this.state.windowWidth / 5 - 21;
         } else if (this.state.windowWidth > 900) {
-            containerWidth = this.state.windowWidth / 4 - 41;
-        } else if (this.state.windowWidth > 600) {
-            containerWidth = this.state.windowWidth / 3 - 31;
-        } else {
+            containerWidth = this.state.windowWidth / 4 - 21;
+        } else if (this.state.windowWidth > 800) {
+            containerWidth = this.state.windowWidth / 3 - 21;
+        } else if (this.state.windowWidth > 500) {
             containerWidth = this.state.windowWidth / 2 - 21;
+        } else {
+            containerWidth = this.state.windowWidth - 11;
         }
 
         return (
@@ -89,14 +101,22 @@ export default class JjalContainer extends Component {
                      margin: 5,
                      height: containerWidth + 80,
                  }}>
+                {this.state.isDetail ?
+                    <JjalDetail jjal={this.props.jjal} onCloseDetail={this.onCloseDetail.bind(this)}/> : null}
                 <WindowResizeListener onResize={windowSize => {
                     this.setState({
                         windowWidth: windowSize.windowWidth,
                         windowHeight: windowSize.windowHeight
                     });
                 }}/>
-                <div className="imageWrapper" style={{position: 'relative'}}>
-                    <img src={this.props.jjal.src} height={containerWidth}/>
+                <div className="imageWrapper" style={{position: 'relative', overflow: 'auto'}}
+                     onClick={this.onImageClick.bind(this)}>
+                    <img src={this.props.jjal.src} height={containerWidth}
+                         style={{
+                             marginLeft: '50%',
+                             transform: 'translateX(-50%)'
+                         }}/>
+
                     <div style={Object.assign({width: containerWidth - 12}, {
                         position: 'absolute',
                         bottom: 0, right: 0,

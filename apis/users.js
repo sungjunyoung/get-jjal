@@ -28,6 +28,18 @@ router.get('/:userId', function (req, res, next) {
         })
 });
 
+// 유저가 좋아요 한 짤방 얻기
+router.get('/:userId/jjals/like', function(req,res,next){
+    var userId = req.params.userId;
+
+    mysql.query('SELECT gj_jjals.* FROM gj_user_likes JOIN gj_jjals ' +
+        'ON gj_jjals.id = gj_user_likes.jjal_id WHERE gj_user_likes.user_id = ?', userId)
+        .spread(function(rows){
+            res.status(200);
+            res.json({likeJjals: rows})
+        })
+});
+
 // 유저 짤방 좋아요 / 해제 (쿼리파라미터에 따라서)
 // ?flag=true : 좋아요 / ?flag=false : 해제
 router.post('/:userId/jjals/:jjalId/like', function (req, res, next) {

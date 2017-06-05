@@ -13,34 +13,34 @@ export default class MyJjals extends Component {
 
     componentDidMount() {
         const component = this;
-        // fetch('/jjals?page=1', {
-        //     method: 'GET',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json',
-        //     }
-        // }).then((response) => response.json())
-        //     .then((response) => {
-        //         var likeJjals = response.likeJjals;
-        //         component.setState({likeJjals: jjals});
-        //     });
+        fetch('/users/' + sessionStorage.userId + '/jjals/like', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => response.json())
+            .then((response) => {
+                var likeJjals = response.likeJjals;
+                component.setState({likeJjals: likeJjals});
+            });
     }
 
-    loadJjals(jjals) {
-        return jjals.map((jjal) => {
-            return <JjalContaier jjal={jjal}/>
+    loadJjals(likeJjals) {
+        return likeJjals.map((likeJjal) => {
+            return <JjalContaier jjal={likeJjal}/>
         })
     }
 
     render() {
+        console.log(this.state.likeJjals);
         return (
             <div className="MyJjals" style={{
                 marginTop: 60
             }}>
-                <div>좋아한 짤방</div>
-                {this.loadJjals(this.state.jjals)}
-                <div>내가 올린 짤방</div>
-                {this.loadJjals(this.state.jjals)}
+                {this.loadJjals(this.state.likeJjals)}
+                {/*<div>내가 올린 짤방</div>*/}
+                {/*{this.loadJjals(this.state.likeJjals)}*/}
             </div>
         );
     }

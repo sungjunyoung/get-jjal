@@ -6,6 +6,7 @@ import './style.css';
 
 import Header from '../Header';
 import CurrentJjals from '../CurrentJjals';
+import MyJjals from "../MyJjals/index";
 
 class App extends Component {
 
@@ -58,6 +59,9 @@ class App extends Component {
         switch(this.state.menuName){
             case "최근 짤방":
                 return (<CurrentJjals/>);
+                break;
+            case "내 짤방":
+                return (<MyJjals/>);
                 break;
             default:
                 return(<div/>);
