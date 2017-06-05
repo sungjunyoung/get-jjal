@@ -1,0 +1,21 @@
+/**
+ * Created by junyoung on 2017. 6. 2..
+ */
+.TagComponent {
+    display: inline-block;
+    background-color : #222222;
+    border-radius: 13px;
+    padding: 5px 8px 5px 8px;
+    color : white;
+    margin: 3px;
+    font-family: BMDOHYEON;
+}
+
+.deleteTag {
+    font-family: Arial;
+    padding-top: 5px;
+    cursor: pointer;
+    color: #bc4d4d;
+    margin-left: 10px;
+    border-radius: 10px;
+}
