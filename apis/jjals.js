@@ -78,6 +78,7 @@ router.get('/popular',function(req,res,next)
 
 
 //최근 짤방
+/*
 router.get('/recent',function(req,res,next) {
   mysql.query('SELECT * FROM gj_jjals ORDER BY created_at DESC')
       .spread(function (rows)
@@ -86,6 +87,6 @@ router.get('/recent',function(req,res,next) {
         res.json(recent_jjals);
       });
 });
-
+*/
 
 module.exports = router;
