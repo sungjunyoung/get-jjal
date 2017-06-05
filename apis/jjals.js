@@ -36,6 +36,18 @@ router.get('/:jjalId', function (req, res, next) {
     res.json({jjalId: req.param("jjalId")})
 });
 
+// 짤방 아이디에 대한 태그들 리턴
+router.get('/:jjalId/tags', function(req,res, next){
+    var jjalId = req.params.jjalId;
+    mysql.query('SELECT gj_tags.name FROM gj_jjal_tags' +
+        ' JOIN gj_tags ON gj_jjal_tags.tag_id = gj_tags.id WHERE gj_jjal_tags.jjal_id = ' + jjalId)
+        .spread(function(rows){
+            const jjal_tags = {tags: rows};
+            res.json(jjal_tags);
+        })
+
+});
+
 router.post('/', function (req, res, next) {
     console.log(req.body);
     res.json(req.body);
