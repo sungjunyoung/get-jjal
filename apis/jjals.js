@@ -166,16 +166,6 @@ router.get('/', function(req, res, next) {
     }
 });
 
-router.get('/:userId', function(req, res, next) {
-    mysql.query('SELECT * FROM user_id=' + req.param.userId)
-        .spread(function(rows) {
-            const like_jjals = {
-                jjals: rows
-            };
-            res.json(like_jjals);
-        });
-});
-
 //짤방을 좋아하는 유저 리스트
 router.get('/:jjalId/users/like', function(req, res, next) {
     mysql.query('SELECT * FROM gj_users WHERE id IN (SELECT user_id FROM gj_user_likes WHERE jjal_id = ?)', [req.param.jjalId])
