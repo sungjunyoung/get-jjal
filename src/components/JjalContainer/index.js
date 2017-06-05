@@ -4,6 +4,7 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border'
 import Star from 'material-ui/svg-icons/toggle/star'
 import './style.css';
 import JjalDetail from '../JjalDetail';
+import TagComponent from "../TagComponent/index";
 
 export default class JjalContainer extends Component {
 
@@ -15,10 +16,12 @@ export default class JjalContainer extends Component {
             username: '',
             isLike: false,
             isDetail: false,
+            tags: []
         };
     }
 
     componentDidMount() {
+        // 유저에 대한 정보들
         fetch('/users/' + this.props.jjal.own_user_id, {
             method: 'GET',
             headers: {
@@ -30,6 +33,7 @@ export default class JjalContainer extends Component {
                 this.setState({username: response.username});
             });
 
+        // 좋아요 여부
         fetch('/users/' + sessionStorage.getItem('userId') +
             '/jjals/' + this.props.jjal.id + '/like', {
             method: 'GET',
@@ -44,6 +48,18 @@ export default class JjalContainer extends Component {
             })
             .catch((err) => {
                 console.log(err);
+            });
+
+        //짤방에 대한 태그
+        fetch('/jjals/' + this.props.jjal.id + '/tags', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => response.json())
+            .then((response) => {
+                this.setState({tags: response.tags});
             });
     }
 
@@ -77,6 +93,12 @@ export default class JjalContainer extends Component {
         this.setState({isDetail: false});
     }
 
+    renderTags(tags) {
+        return tags.map((tag) => {
+            return <TagComponent listView={true} tag={tag}/>
+        })
+    }
+
     render() {
 
         var containerWidth;
@@ -102,12 +124,16 @@ export default class JjalContainer extends Component {
                  }}>
                 {this.state.isDetail ?
                     <JjalDetail jjal={this.props.jjal} onCloseDetail={this.onCloseDetail.bind(this)}/> : null}
+
+
                 <WindowResizeListener onResize={windowSize => {
                     this.setState({
                         windowWidth: windowSize.windowWidth,
                         windowHeight: windowSize.windowHeight
                     });
                 }}/>
+
+
                 <div className="imageWrapper" style={{position: 'relative', overflow: 'auto'}}>
                     <img src={this.props.jjal.src} height={containerWidth}
                          onClick={this.onImageClick.bind(this)}
@@ -144,8 +170,8 @@ export default class JjalContainer extends Component {
 
                     </div>
                 </div>
-                <div className="imageDesc">
-
+                <div className="imageDesc" style={{height: 80}}>
+                    {this.renderTags(this.state.tags)}
                 </div>
             </div>
         );

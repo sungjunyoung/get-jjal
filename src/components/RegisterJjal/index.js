@@ -170,7 +170,7 @@ export default class RegisterJjal extends Component {
                 }
             }
             let limitOver = false;
-            if (tagText.length > 8) {
+            if (tagText.length > 5) {
                 limitOver = true;
             }
 
@@ -179,7 +179,7 @@ export default class RegisterJjal extends Component {
             } else if (alreadyExist) {
                 this.showAlert('info', '이미 존재하는 태그입니다.')
             } else if (limitOver) {
-                this.showAlert('error', '태그는 8자 이내로 써주세요')
+                this.showAlert('error', '태그는 5자 이내로 써주세요')
             } else {
                 tags.push(tagObj);
                 this.setState({tags: tags});

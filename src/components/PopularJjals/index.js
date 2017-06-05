@@ -76,7 +76,6 @@ export default class PopularJjals extends Component {
     }
 
     render() {
-        console.log(this.state.jjals);
         return (
             <div className="PopularJjals" style={{
                 marginTop: 90

@@ -2,13 +2,15 @@
  * Created by junyoung on 2017. 6. 2..
  */
 .TagComponent {
-    display: inline-block;
+    /*display: inline-block;*/
+    float:left;
     background-color : #222222;
     border-radius: 13px;
     padding: 5px 8px 5px 8px;
     color : white;
     margin: 3px;
     font-family: BMDOHYEON;
+    font-size: 12px;
 }
 
 .deleteTag {
