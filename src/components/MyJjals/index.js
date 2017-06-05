@@ -36,7 +36,7 @@ export default class MyJjals extends Component {
         console.log(this.state.likeJjals);
         return (
             <div className="MyJjals" style={{
-                marginTop: 60
+                marginTop: 90
             }}>
                 {this.loadJjals(this.state.likeJjals)}
                 {/*<div>내가 올린 짤방</div>*/}

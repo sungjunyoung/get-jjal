@@ -79,7 +79,7 @@ export default class CurrentJjals extends Component {
     render() {
         return (
             <div className="CurrentJjals" style={{
-                marginTop: 60
+                marginTop: 90
             }}>
                 {this.loadJjals(this.state.jjals)}
 

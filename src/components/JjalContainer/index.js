@@ -87,7 +87,7 @@ export default class JjalContainer extends Component {
             containerWidth = this.state.windowWidth / 4 - 21;
         } else if (this.state.windowWidth > 800) {
             containerWidth = this.state.windowWidth / 3 - 21;
-        } else if (this.state.windowWidth > 500) {
+        } else if (this.state.windowWidth > 400) {
             containerWidth = this.state.windowWidth / 2 - 21;
         } else {
             containerWidth = this.state.windowWidth - 11;
@@ -109,9 +109,9 @@ export default class JjalContainer extends Component {
                         windowHeight: windowSize.windowHeight
                     });
                 }}/>
-                <div className="imageWrapper" style={{position: 'relative', overflow: 'auto'}}
-                     onClick={this.onImageClick.bind(this)}>
+                <div className="imageWrapper" style={{position: 'relative', overflow: 'auto'}}>
                     <img src={this.props.jjal.src} height={containerWidth}
+                         onClick={this.onImageClick.bind(this)}
                          style={{
                              marginLeft: '50%',
                              transform: 'translateX(-50%)'
