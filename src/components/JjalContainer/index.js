@@ -123,7 +123,7 @@ export default class JjalContainer extends Component {
                      height: containerWidth + 80,
                  }}>
                 {this.state.isDetail ?
-                    <JjalDetail jjal={this.props.jjal} onCloseDetail={this.onCloseDetail.bind(this)}/> : null}
+                    <JjalDetail tags={this.state.tags} jjal={this.props.jjal} onCloseDetail={this.onCloseDetail.bind(this)}/> : null}
 
 
                 <WindowResizeListener onResize={windowSize => {

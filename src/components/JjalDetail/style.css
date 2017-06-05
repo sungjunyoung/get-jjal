@@ -1,3 +1,14 @@
 /**
  * Created by junyoung on 2017. 6. 2..
  */
+
+.userInfo {
+    text-align: left;
+    font-family: BMDOHYEON;
+    color: white;
+}
+
+.userInfo.desc{
+    font-family: BMDOHYEON;
+    font-size: 13px;
+}
