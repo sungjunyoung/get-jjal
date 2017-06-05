@@ -35,7 +35,7 @@ router.get('/users/:userId', function(req,res,next){
     var page = req.query.page - 1;
     var pagingQuery = page * 30 + ', 30';
     mysql.query('SELECT * FROM gj_jjals WHERE own_user_id = ?' +
-        ' ORDER BY created_at DESC LIMIT '+pagingQuery,req.params.userId)
+        ' ORDER BY created_at DESC LIMIT '+pagingQuery, req.params.userId)
         .spread(function(rows){
             const userJjals = {userJjals: rows};
             res.json(userJjals);
@@ -51,5 +51,41 @@ router.get('/', function (req, res, next) {
             res.json(jjals);
         })
 });
+
+
+// User가 Like 한 짤방
+/*
+router.get('/:userId',function(req,res,next)
+{
+    mysql.query('SELECT * FROM user_id='+req.param.userId)
+        .spread(function (rows)
+    {
+        const like_jjals = {jjals : rows};
+        res.json(like_jjals);
+    });
+});
+*/
+//인기 짤방
+router.get('/popular',function(req,res,next)
+{
+  mysql.query('SELECT gj_jjals.* FROM gj_user_likes JOIN gj_jjals ON gj_jjals.id = gj_user_likes.jjal_id GROUP BY jjal_id ORDER BY count(*) DESC')
+      .spread(function (rows)
+    {
+        const popular_jjals = {jjals : rows};
+        res.json(popular_jjals);
+    });
+});
+
+
+//최근 짤방
+router.get('/recent',function(req,res,next) {
+  mysql.query('SELECT * FROM gj_jjals ORDER BY created_at DESC')
+      .spread(function (rows)
+      {
+        const recent_jjals = {jjals : rows};
+        res.json(recent_jjals);
+      });
+});
+
 
 module.exports = router;
