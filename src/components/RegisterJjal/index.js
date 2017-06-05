@@ -65,13 +65,14 @@ export default class RegisterJjal extends Component {
     }
 
     registerJjal() {
-        var jjalObj = {};
+        let jjalObj = {};
         jjalObj.own_user_id = sessionStorage.userId;
         jjalObj.src = this.state.jjalSrc;
         jjalObj.width = this.state.jjalWidth;
         jjalObj.height = this.state.jjalHeight;
         jjalObj.tags = this.state.tags;
 
+        const component = this;
         fetch('/jjals', {
             method: 'POST',
             headers: {
@@ -81,7 +82,10 @@ export default class RegisterJjal extends Component {
             body: JSON.stringify(jjalObj)
         }).then((response) => response.json())
             .then((response) => {
-                console.log(response);
+                if(response.code === 'SUCCESS'){
+                    component.setState({isSelectType: false});
+                    component.showAlert('success', '짤방을 등록했어요!');
+                }
             });
 
     }
