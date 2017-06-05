@@ -121,11 +121,23 @@ router.get('/users/:userId', function (req, res, next) {
 router.get('/', function (req, res, next) {
     var page = req.query.page - 1;
     var pagingQuery = page * 30 + ', 30';
-    mysql.query('SELECT * FROM gj_jjals ORDER BY created_at DESC LIMIT ' + pagingQuery)
-        .spread(function (rows) {
-            const jjals = {jjals: rows};
-            res.json(jjals);
-        })
+
+    if(req.query.tagId)
+    {
+      console.log("tagId");
+      mysql.query('SELECT * FROM gj_jjals WHERE id IN ((SELECT jjal_id FROM gj_jjal_tags WHERE tag_id = ?)) ORDER BY created_at DESC LIMIT '+pagingQuery,[req.query.tagId])
+          .spread(function (rows) {
+              const jjals = {jjals: rows};
+              res.json(jjals);
+          })
+    }
+    else {
+      mysql.query('SELECT * FROM gj_jjals ORDER BY created_at DESC LIMIT ' + pagingQuery)
+          .spread(function (rows) {
+              const jjals = {jjals: rows};
+              res.json(jjals);
+          })
+    }
 });
 
 router.get('/:userId',function(req,res,next)
@@ -140,7 +152,7 @@ router.get('/:userId',function(req,res,next)
 
 router.get('/:jjalId/users/like',function(req,res,next)
 {
-  mysql.query('SELECT * FROM gj_jjals WHERE id IN (SELECT jjal_id FROM gj_jjal_tags WHERE tag_id = ?)',[req.param.jjalId])
+  mysql.query('SELECT * FROM gj_users WHERE id IN (SELECT user_id FROM gj_user_likes WHERE jjal_id = ?)',[req.param.jjalId])
       .spread(function (rows)
   {
       const like_user_jjals = {jjals : rows};
