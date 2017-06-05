@@ -2,13 +2,31 @@
  * Created by junyoung on 2017. 6. 2..
  */
 
-.userInfo {
+.jjalInfo {
     text-align: left;
     font-family: BMDOHYEON;
     color: white;
+    margin-bottom:10px;
 }
 
-.userInfo.desc{
+.jjalInfo.desc{
     font-family: BMDOHYEON;
-    font-size: 13px;
+}
+
+.jjalInfo.desc > a:visited {
+    color: lightgray;
+}
+.jjalInfo.desc > a:hover {
+    color: dimgrey;
+}
+.jjalInfo.desc > a {
+    color: white;
+    word-wrap: break-word;
+}
+
+.userLikeCount{
+    font-size: 40px;
+    color: white;
+    font-family: BMDOHYEON;
+    float:right;
 }

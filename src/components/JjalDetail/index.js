@@ -14,7 +14,8 @@ export default class JjalDetail extends Component {
             windowWidth: '0',
             windowHeight: '0',
             userInfo: {},
-            isLike: false
+            isLike: false,
+            usersLikeCount: 0
         }
     }
 
@@ -48,6 +49,19 @@ export default class JjalDetail extends Component {
             .then((response) => {
                 component.setState({userInfo: response});
             });
+
+        fetch('/jjals/' + this.props.jjal.id + '/users/like', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => response.json())
+            .then((response) => {
+                const usersLikeCount = response.jjals.length;
+                component.setState({usersLikeCount: usersLikeCount})
+            });
+
     }
 
     onCloseDetail() {
@@ -62,6 +76,12 @@ export default class JjalDetail extends Component {
 
     onLike() {
         var container = this;
+        if (this.state.isLike) {
+            this.setState({usersLikeCount: this.state.usersLikeCount - 1})
+        } else {
+            this.setState({usersLikeCount: this.state.usersLikeCount + 1})
+        }
+
         fetch('/users/' + sessionStorage.getItem('userId') +
             '/jjals/' + this.props.jjal.id + '/like?flag=' + !this.state.isLike, {
             method: 'POST',
@@ -124,11 +144,13 @@ export default class JjalDetail extends Component {
                     color: 'black', position: 'fixed', bottom: 0, left: 0,
                     height: 140, padding: '10px 20px 10px 20px'
                 })}>
-                    <h3 className="userInfo">{this.state.userInfo.username}
-                        <span className="userInfo desc"> 님이 공유한 짤방</span></h3>
+                    <div className="jjalInfo">{this.state.userInfo.username}
+                        <span className="jjalInfo desc"> 님이 공유한 짤방</span></div>
+                    <div className="jjalInfo"> 출처 :
+                        <span className="jjalInfo desc"> <a href={this.props.jjal.src}>{this.props.jjal.src}</a></span></div>
                     <div style={{
                         position: 'absolute', bottom: 20,
-                        right: 20, width: 100, height: 40, backgroundColor: 'red'
+                        right: 20, width: 120, height: 40
                     }}>
                         {this.state.isLike ?
                             <Star color="white" onClick={this.onLike.bind(this)} style={{
@@ -141,6 +163,7 @@ export default class JjalDetail extends Component {
                                 float: 'left'
                             }}/>
                         }
+                        <span className="userLikeCount">{this.state.usersLikeCount}</span>
                     </div>
                 </div>
             </div>

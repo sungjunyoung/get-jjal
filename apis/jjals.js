@@ -152,7 +152,7 @@ router.get('/:userId',function(req,res,next)
 
 router.get('/:jjalId/users/like',function(req,res,next)
 {
-  mysql.query('SELECT * FROM gj_users WHERE id IN (SELECT user_id FROM gj_user_likes WHERE jjal_id = ?)',[req.param.jjalId])
+  mysql.query('SELECT * FROM gj_users WHERE id IN (SELECT user_id FROM gj_user_likes WHERE jjal_id = ?)',[req.params.jjalId])
       .spread(function (rows)
   {
       const like_user_jjals = {jjals : rows};
