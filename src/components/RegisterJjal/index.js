@@ -55,8 +55,8 @@ export default class RegisterJjal extends Component {
         image.onload = function () {
             this.setState({
                 jjalSrc: imageSrc, isUrlRegisterDisabled: false,
-                jjalWidth: this.width,
-                jjalHeight: this.height,
+                jjalWidth: image.width,
+                jjalHeight: image.height,
             })
         }.bind(this);
         image.onerror = function () {
