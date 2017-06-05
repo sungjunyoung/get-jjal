@@ -21,8 +21,13 @@ router.use(bodyParser.json());
 
 // uri : GET /jjals/:jjalId
 router.get('/:jjalId', function (req, res, next) {
-    // 여기에 쿼리날려서 유저검색 후 반환
-    res.send({jjalId: req.param("jjalId")})
+    // 여기에 쿼리날려서 반환
+    res.json({jjalId: req.param("jjalId")})
+});
+
+router.post('/', function(req,res,next){
+    console.log(req.body);
+    res.json(req.body);
 });
 
 // 유저가 올린 짤방
@@ -35,9 +40,6 @@ router.get('/users/:userId', function(req,res,next){
             const userJjals = {userJjals: rows};
             res.json(userJjals);
         })
-});
-
-router.get('/users/:userId/likes', function(req, res, next){
 });
 
 router.get('/', function (req, res, next) {

@@ -5,7 +5,6 @@ import './style.css';
 export default class Menu extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
         this.state = {
             menuHeight: 0,
             menuWidth: 0,
@@ -21,6 +20,7 @@ export default class Menu extends Component {
 
     logout(){
         sessionStorage.clear();
+        localStorage.clear();
         this.props.history.push('/auth');
     }
 

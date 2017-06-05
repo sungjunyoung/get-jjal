@@ -38,6 +38,8 @@ export default class RegisterJjal extends Component {
             isImageNotExist: false,
             isTagView: false,
             tagTextFieldValue: '',
+            jjalWidth: 0,
+            jjalHeight: 0,
             tags: []
         }
     }
@@ -51,11 +53,37 @@ export default class RegisterJjal extends Component {
         var image = new Image();
         image.src = imageSrc;
         image.onload = function () {
-            this.setState({jjalSrc: imageSrc, isUrlRegisterDisabled: false})
+            this.setState({
+                jjalSrc: imageSrc, isUrlRegisterDisabled: false,
+                jjalWidth: this.width,
+                jjalHeight: this.height,
+            })
         }.bind(this);
         image.onerror = function () {
             this.setState({jjalSrc: '', isUrlRegisterDisabled: true})
         }.bind(this);
+    }
+
+    registerJjal() {
+        var jjalObj = {};
+        jjalObj.own_user_id = sessionStorage.userId;
+        jjalObj.src = this.state.jjalSrc;
+        jjalObj.width = this.state.jjalWidth;
+        jjalObj.height = this.state.jjalHeight;
+        jjalObj.tags = this.state.tags;
+
+        fetch('/jjals', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(jjalObj)
+        }).then((response) => response.json())
+            .then((response) => {
+                console.log(response);
+            });
+
     }
 
     renderByType(registerType) {
@@ -103,6 +131,7 @@ export default class RegisterJjal extends Component {
                             underlineFocusStyle={{borderColor: 'black'}}
                         />
                         <RaisedButton fullWidth={true} label="완료하기"
+                                      onClick={this.registerJjal.bind(this)}
                                       icon={<ByURLButton/>}/>
                     </div>
                     :
@@ -136,12 +165,12 @@ export default class RegisterJjal extends Component {
 
             let alreadyExist = false;
             for (let i in tags) {
-                if(tags[i].name === tagObj.name){
+                if (tags[i].name === tagObj.name) {
                     alreadyExist = true;
                 }
             }
             let limitOver = false;
-            if(tagText.length > 8){
+            if (tagText.length > 8) {
                 limitOver = true;
             }
 
@@ -149,7 +178,7 @@ export default class RegisterJjal extends Component {
                 this.showAlert('error', '태그는 다섯개까지만 가능합니다!');
             } else if (alreadyExist) {
                 this.showAlert('info', '이미 존재하는 태그입니다.')
-            } else if(limitOver){
+            } else if (limitOver) {
                 this.showAlert('error', '태그는 8자 이내로 써주세요')
             } else {
                 tags.push(tagObj);

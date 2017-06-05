@@ -33,7 +33,6 @@ export default class MyJjals extends Component {
     }
 
     render() {
-        console.log(this.state.likeJjals);
         return (
             <div className="MyJjals" style={{
                 marginTop: 90

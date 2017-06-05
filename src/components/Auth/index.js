@@ -110,10 +110,14 @@ export default class Auth extends Component {
                         component.showAlert('error', '패스워드를 다시 확인해주세요!');
                     else if(response.code === 'DB_ERR')
                         component.showAlert('error', '데이터베이스 에러가 발생했습니다!');
-
                 }
-
             });
+    }
+
+    onPressEnter(event) {
+        if(event.key === 'Enter'){
+            this.onLogin();
+        }
     }
 
     render() {
@@ -126,7 +130,7 @@ export default class Auth extends Component {
                     marginTop: -this.state.formHeight / 2, marginLeft: -this.state.formWidth / 2
                 }}>
                     <Card style={{maxWidth: 400, margin: 'auto', padding: 30}}>
-                        <CardTitle title="겟짤" subtitle="퍼가용"/>
+                        <CardTitle className="logo" title="겟짤"/>
                         <CardText>
                             자신만의 짤방을 수집하고 다른 사람들과 공유해보세요!
                         </CardText>
@@ -136,6 +140,8 @@ export default class Auth extends Component {
                                 onChange={this.onIdChange.bind(this)}
                                 hintText="아이디를 입력해주세요"
                                 floatingLabelText="아이디"
+                                underlineFocusStyle={{borderColor: 'black'}}
+                                floatingLabelStyle={{color: 'black'}}
                             />
                             <TextField
                                 style={{width: 300, marginTop: -10}}
@@ -143,6 +149,9 @@ export default class Auth extends Component {
                                 hintText="패스워드를 입력해주세요"
                                 floatingLabelText="패스워드"
                                 type="password"
+                                underlineFocusStyle={{borderColor: 'black'}}
+                                floatingLabelStyle={{color: 'black'}}
+                                onKeyPress={this.onPressEnter.bind(this)}
                             />
                             <RaisedButton
                                 onTouchTap={this.onLogin.bind(this)}

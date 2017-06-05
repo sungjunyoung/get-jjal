@@ -19,7 +19,6 @@ export default class JjalContainer extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.jjal.own_user_id);
         fetch('/users/' + this.props.jjal.own_user_id, {
             method: 'GET',
             headers: {

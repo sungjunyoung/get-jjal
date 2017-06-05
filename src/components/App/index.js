@@ -79,7 +79,6 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.state.userInfo);
 
         return (
             <div className="App">

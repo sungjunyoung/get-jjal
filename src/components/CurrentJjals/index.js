@@ -30,7 +30,6 @@ export default class CurrentJjals extends Component {
         var jjals = this.state.jjals;
         var component = this;
 
-        console.log(this.state.page);
         var nextPage = this.state.page + 1;
         fetch('/jjals?page=' + nextPage, {
             method: 'GET',
