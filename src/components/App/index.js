@@ -8,6 +8,7 @@ import Header from '../Header';
 import CurrentJjals from '../CurrentJjals';
 import MyJjals from "../MyJjals";
 import ResgisterJjal from '../RegisterJjal'
+import PopularJjals from "../PopularJjals/index";
 
 class App extends Component {
 
@@ -66,6 +67,9 @@ class App extends Component {
                 break;
             case "짤방 등록":
                 return (<ResgisterJjal/>);
+                break;
+            case "인기 짤방":
+                return (<PopularJjals/>);
                 break;
             default:
                 return(<div/>);

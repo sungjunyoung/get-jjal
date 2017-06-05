@@ -49,14 +49,14 @@ export default class JjalDetail extends Component {
                 <div style={Object.assign(
                     {
                         background: 'url(' + this.props.jjal.src + ') no-repeat center center',
-                        height: this.state.windowHeight - 200
+                        height: this.state.windowHeight - 220
                     }, {
                         backgroundSize: 'contain', width: '100%', position: 'fixed', top: 80, left: 0
                     })}/>
 
                 <div style={{
                     color: 'black', position: 'fixed', bottom: 0, left: 0,
-                    width: '100%', height: 120
+                    width: '100%', height: 140, padding: 10
                 }}>
                     JjalDetail
                 </div>
