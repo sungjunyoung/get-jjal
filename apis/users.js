@@ -32,8 +32,11 @@ router.get('/:userId', function (req, res, next) {
 router.get('/:userId/jjals/like', function(req,res,next){
     var userId = req.params.userId;
 
+    var page = req.query.page - 1;
+    var pagingQuery = page * 30 + ', 30';
+
     mysql.query('SELECT gj_jjals.* FROM gj_user_likes JOIN gj_jjals ' +
-        'ON gj_jjals.id = gj_user_likes.jjal_id WHERE gj_user_likes.user_id = ?', userId)
+        'ON gj_jjals.id = gj_user_likes.jjal_id WHERE gj_user_likes.user_id = ? LIMIT ' + pagingQuery, userId)
         .spread(function(rows){
             res.status(200);
             res.json({likeJjals: rows})
