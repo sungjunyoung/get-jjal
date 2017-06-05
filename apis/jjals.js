@@ -125,7 +125,6 @@ router.get('/', function (req, res, next) {
 });
 
 
-//최근 짤방
 router.get('/:userId',function(req,res,next)
 {
     mysql.query('SELECT * FROM user_id='+req.param.userId)
@@ -136,5 +135,14 @@ router.get('/:userId',function(req,res,next)
     });
 });
 
+router.get('/:jjalId/users/like',function(req,res,next)
+{
+  mysql.query('SELECT * FROM gj_jjals WHERE id IN (SELECT jjal_id FROM gj_jjal_tags WHERE tag_id = ?)',[req.param.jjalId])
+      .spread(function (rows)
+  {
+      const like_user_jjals = {jjals : rows};
+      res.json(like_jjals);
+  });
+});
 
 module.exports = router;
