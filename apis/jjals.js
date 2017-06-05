@@ -156,7 +156,7 @@ router.get('/:jjalId/users/like',function(req,res,next)
       .spread(function (rows)
   {
       const like_user_jjals = {jjals : rows};
-      res.json(like_jjals);
+      res.json(like_user_jjals);
   });
 });
 
