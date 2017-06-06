@@ -9,8 +9,8 @@ export default class WhoMake extends Component {
             <div className="WhoMake"
                  style={{marginTop: 90}}>
                 <div style={{
-                    position: 'fixed', width: 300, height: 100,
-                    top: '50%', left: '50%', marginLeft: -150, marginTop: -50,
+                    position: 'fixed', width: 300, height: 300,
+                    top: '50%', left: '50%', marginLeft: -150, marginTop: -150,
 
                 }}>
                     <div className="who">
@@ -21,6 +21,9 @@ export default class WhoMake extends Component {
                     </div>
                     <div className="who">
                         서버지원 : 임병훈
+                    </div>
+                    <div className="who">
+                        도움 : 황보동규
                     </div>
                 </div>
             </div>

@@ -66,7 +66,7 @@ export default class RegisterJjal extends Component {
 
     registerJjal() {
         if (this.state.tags.length === 0) {
-            this.showAlert('error', '동규형 태그 달아주세요');
+            this.showAlert('error', '태그를 하나이상 달아주세요!');
             return;
         }
 
