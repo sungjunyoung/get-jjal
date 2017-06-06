@@ -159,7 +159,7 @@ export default class Auth extends Component {
 
                             <FacebookLogin
                                 appId={facebookAuth.appId}
-                                autoLoad={true}
+                                autoLoad={false}
                                 fields="name,email,picture"
                                 cssClass="facebook-login"
                                 textButton="페이스북으로 로그인"
