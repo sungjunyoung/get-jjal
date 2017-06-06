@@ -48,7 +48,8 @@ class App extends Component {
 
         if (browser.name.toLowerCase().indexOf('chrome') !== -1 ||
             browser.name.toLowerCase().indexOf('safari') !== -1 ||
-            browser.name.toLowerCase().indexOf('crios') !== -1) {
+            browser.name.toLowerCase().indexOf('crios') !== -1 ||
+            browser.name.toLowerCase().indexOf('ios') !== -1) {
             this.setState({isChrome: true});
         }
 
@@ -130,7 +131,7 @@ class App extends Component {
                                 history={this.props.history}
                                 onMenuChange={this.onMenuChange.bind(this)}/>
                         {this.selectView()}
-                    </div>:
+                    </div> :
                     <div className="App" style={{
                         position: 'fixed',
                         top: '50%', left: '50%', width: 100, height: 100,
