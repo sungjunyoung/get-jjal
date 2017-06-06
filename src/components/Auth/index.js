@@ -55,7 +55,7 @@ export default class Auth extends Component {
                 .then((response) => {
                     if (response.code === 'SUCCESS') {
                         sessionStorage.setItem("userId", response.userId);
-                        sessionStorage.setItem("menuName", "내 짤방");
+                        sessionStorage.setItem("menuName", "최근 짤방");
                         component.props.history.push('/');
                     } else {
                         // 로그인 실패
