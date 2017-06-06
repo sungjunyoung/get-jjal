@@ -44,9 +44,10 @@ class App extends Component {
     }
 
     componentDidMount() {
+        console.log(browser.name);
 
-        if (browser.name.indexOf('chrome') !== -1 ||
-            browser.name.indexOf('safari') !== -1 ) {
+        if (browser.name.toLowerCase().indexOf('chrome') !== -1 ||
+            browser.name.toLowerCase().indexOf('safari') !== -1 ) {
             this.setState({isChrome: true});
         }
 
