@@ -59,11 +59,14 @@ export default class Auth extends Component {
                         component.props.history.push('/');
                     } else {
                         // 로그인 실패
+                        console.log('로그인 실패');
+                        console.log(response)
                     }
 
                 });
         } else {
-
+            console.log('response.name 없어서 실패');
+            console.log(response)
         }
     }
 
