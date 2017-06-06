@@ -60,7 +60,6 @@ export default class FoundJjals extends Component {
         }).then((response) => response.json())
             .then((response) => {
                 var jjals = response.jjals;
-                console.log('component did mount');
                 component.setState({jjals: jjals});
             });
     }

@@ -131,7 +131,7 @@ export default class JjalDetail extends Component {
                 </div>
 
 
-                <div style={Object.assign(
+                <a href={this.props.jjal.src} download style={Object.assign(
                     {
                         background: 'url(' + this.props.jjal.src + ') no-repeat center center',
                         height: this.state.windowHeight - 240

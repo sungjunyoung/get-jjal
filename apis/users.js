@@ -98,7 +98,6 @@ router.get('/:userId/jjals/:jjalId/like', function (req, res, next) {
 
 // 유저 등록 / 로그인
 router.post('/', function (req, res, next) {
-    console.log(req.body);
     var userInfo = {};
 
     // 페이스북 로그인일때

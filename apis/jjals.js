@@ -82,9 +82,7 @@ router.post('/', function (req, res, next) {
 
     mysql.query('SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = \'get-jjal\' AND TABLE_NAME = \'gj_jjals\'')
         .spread(function (rows) {
-            console.log(rows[0]);
             jjal_id = rows[0].AUTO_INCREMENT;
-            console.log(jjal_id);
             return mysql.query("INSERT INTO gj_jjals (src,width,height,own_user_id) VALUES (?,?,?,?)", [jjals_info.src, jjals_info.width, jjals_info.height, jjals_info.own_user_id]);
         })
         .then(function () {
@@ -97,7 +95,6 @@ router.post('/', function (req, res, next) {
                 }
             );
             insert_tag_query = insert_tag_query.substring(0, insert_tag_query.length - 1);
-            console.log(insert_tag_query);
             return mysql.query(insert_tag_query);
         })
         .then(function () {
@@ -158,7 +155,6 @@ router.get('/', function (req, res, next) {
     var pagingQuery = page * 30 + ', 30';
 
     if (req.query.tagId) {
-        console.log("tagId");
         mysql.query('SELECT * FROM gj_jjals WHERE id IN ((SELECT jjal_id FROM gj_jjal_tags WHERE tag_id = ?)) ORDER BY created_at DESC LIMIT ' + pagingQuery, [req.query.tagId])
             .spread(function (rows) {
                 const jjals = {
