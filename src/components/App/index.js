@@ -47,7 +47,8 @@ class App extends Component {
         console.log(browser.name);
 
         if (browser.name.toLowerCase().indexOf('chrome') !== -1 ||
-            browser.name.toLowerCase().indexOf('safari') !== -1 ) {
+            browser.name.toLowerCase().indexOf('safari') !== -1 ||
+            browser.name.toLowerCase().indexOf('crios') !== -1) {
             this.setState({isChrome: true});
         }
 
@@ -135,7 +136,6 @@ class App extends Component {
                         top: '50%', left: '50%', width: 100, height: 100,
                         marginLeft: -50, marginTop: -30, fontFamily: 'BMDOHYEON', fontSize: 30
                     }}>
-                        {browser.name}
                         크롬을 씁시다 여러분
                     </div>
                 }
