@@ -34,7 +34,7 @@ export default class MyJjals extends Component {
         var component = this;
 
         var nextPage = this.state.page + 1;
-        fetch('/users/' + sessionStorage.userId + '/jjals/like?page=' + nextPage, {
+        fetch('/users/' + localStorage.userId + '/jjals/like?page=' + nextPage, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -49,7 +49,7 @@ export default class MyJjals extends Component {
                 });
             });
 
-        fetch('/jjals/users/' + sessionStorage.userId + '?page=' + nextPage, {
+        fetch('/jjals/users/' + localStorage.userId + '?page=' + nextPage, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -68,7 +68,7 @@ export default class MyJjals extends Component {
     componentDidMount() {
         window.addEventListener("scroll", this.handleScroll.bind(this));
         const component = this;
-        fetch('/users/' + sessionStorage.userId + '/jjals/like?page=1', {
+        fetch('/users/' + localStorage.userId + '/jjals/like?page=1', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -80,7 +80,7 @@ export default class MyJjals extends Component {
                 component.setState({likeJjals: likeJjals});
             });
 
-        fetch('/jjals/users/' + sessionStorage.userId + '?page=1', {
+        fetch('/jjals/users/' + localStorage.userId + '?page=1', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

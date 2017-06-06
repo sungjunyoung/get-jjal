@@ -66,7 +66,7 @@ export default class RegisterJjal extends Component {
 
     registerJjal() {
         let jjalObj = {};
-        jjalObj.own_user_id = sessionStorage.userId;
+        jjalObj.own_user_id = localStorage.userId;
         jjalObj.src = this.state.jjalSrc;
         jjalObj.width = this.state.jjalWidth;
         jjalObj.height = this.state.jjalHeight;

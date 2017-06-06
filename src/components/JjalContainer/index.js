@@ -34,7 +34,7 @@ export default class JjalContainer extends Component {
             });
 
         // 좋아요 여부
-        fetch('/users/' + sessionStorage.getItem('userId') +
+        fetch('/users/' + localStorage.getItem('userId') +
             '/jjals/' + this.props.jjal.id + '/like', {
             method: 'GET',
             headers: {
@@ -65,7 +65,7 @@ export default class JjalContainer extends Component {
 
     onLike() {
         var container = this;
-        fetch('/users/' + sessionStorage.getItem('userId') +
+        fetch('/users/' + localStorage.getItem('userId') +
             '/jjals/' + this.props.jjal.id + '/like?flag=' + !this.state.isLike, {
             method: 'POST',
             headers: {
@@ -73,7 +73,7 @@ export default class JjalContainer extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                user_id: sessionStorage.getItem('userId'),
+                user_id: localStorage.getItem('userId'),
                 jjal_id: this.props.jjal.id
             })
         }).then((response) => response.json())

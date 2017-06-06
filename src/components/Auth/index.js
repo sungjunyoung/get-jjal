@@ -54,8 +54,9 @@ export default class Auth extends Component {
             }).then((response) => response.json())
                 .then((response) => {
                     if (response.code === 'SUCCESS') {
-                        sessionStorage.setItem("userId", response.userId);
-                        sessionStorage.setItem("menuName", "최근 짤방");
+                        localStorage.setItem("userId", response.userId);
+                        localStorage.setItem("userId", response.userId);
+                        localStorage.setItem("menuName", "최근 짤방");
                         component.props.history.push('/');
                     } else {
                         // 로그인 실패
@@ -106,8 +107,8 @@ export default class Auth extends Component {
                 else if (response.code === 'DB_ERR')
                     component.showAlert('error', '데이터베이스 에러가 발생했습니다!');
                 else if (response.code === 'SUCCESS') {
-                    sessionStorage.setItem("userId", response.userId);
-                    sessionStorage.setItem("menuName", "최근 짤방");
+                    localStorage.setItem("userId", response.userId);
+                    localStorage.setItem("menuName", "최근 짤방");
                     component.props.history.push('/');
                 }
             });

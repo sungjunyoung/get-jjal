@@ -19,8 +19,8 @@ export default class Menu extends Component {
     }
 
     logout(){
-        sessionStorage.clear();
         localStorage.clear();
+        sessionStorage.clear();
         this.props.history.push('/auth');
     }
 

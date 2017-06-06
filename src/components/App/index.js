@@ -18,8 +18,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: sessionStorage.getItem('userId'),
-            menuName: sessionStorage.getItem('menuName'),
+            userId: localStorage.getItem('userId'),
+            menuName: localStorage.getItem('menuName'),
             userInfo: {},
             onFind: false
         };
@@ -43,8 +43,7 @@ class App extends Component {
 
     componentDidMount() {
         // 정상접근 안할때
-        if (!sessionStorage.getItem('userId')) {
-            this.showAlert('error', '로그인해주세요!');
+        if (!localStorage.getItem('userId')) {
             this.props.history.push('/auth');
         }
 
@@ -85,7 +84,7 @@ class App extends Component {
     }
 
     onMenuChange(menuName) {
-        sessionStorage.setItem('menuName', menuName);
+        localStorage.setItem('menuName', menuName);
         this.setState({menuName: menuName});
     }
 
@@ -96,12 +95,12 @@ class App extends Component {
         if (onFind === true) {
             this.setState({menuName: '짤방 검색'})
         } else {
-            this.setState({menuName: sessionStorage.getItem('menuName')})
+            this.setState({menuName: localStorage.getItem('menuName')})
         }
 
     }
     onClickLogo(){
-        sessionStorage.setItem('menuName', "내 짤방");
+        localStorage.setItem('menuName', "내 짤방");
         this.setState({menuName: "내 짤방"});
     }
 
