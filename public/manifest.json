@@ -1,9 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "겟짤",
+  "name": "자신만의 짤방을 수집하고 공유해보세요!",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "favicon.png",
       "sizes": "192x192",
       "type": "image/png"
     }
