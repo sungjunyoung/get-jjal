@@ -136,6 +136,7 @@ export default class JjalContainer extends Component {
 
                 <div className="imageWrapper" style={{position: 'relative', overflowX: 'hidden', overflowY: 'hidden'}}>
                     <img src={this.props.jjal.src} height={containerWidth}
+                         alt={this.props.jjal.src}
                          onClick={this.onImageClick.bind(this)}
                          style={{
                              marginLeft: '50%',

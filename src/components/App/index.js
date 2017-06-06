@@ -9,7 +9,6 @@ import CurrentJjals from '../CurrentJjals';
 import MyJjals from "../MyJjals";
 import ResgisterJjal from '../RegisterJjal'
 import PopularJjals from "../PopularJjals/index";
-import {TextField} from "material-ui";
 import FoundJjals from "../FoundJjals/index";
 import WhoMake from "../WhoMake/index";
 const browser = require('detect-browser');
@@ -46,10 +45,7 @@ class App extends Component {
     componentDidMount() {
         console.log(browser.name);
 
-        if (browser.name.toLowerCase().indexOf('chrome') !== -1 ||
-            browser.name.toLowerCase().indexOf('safari') !== -1 ||
-            browser.name.toLowerCase().indexOf('crios') !== -1 ||
-            browser.name.toLowerCase().indexOf('ios') !== -1) {
+        if (browser.name.toLowerCase().indexOf('explore') === -1) {
             this.setState({isChrome: true});
         }
 
@@ -75,22 +71,18 @@ class App extends Component {
         switch (this.state.menuName) {
             case "최근 짤방":
                 return (<CurrentJjals/>);
-                break;
             case "내 짤방":
                 return (<MyJjals/>);
-                break;
             case "짤방 등록":
                 return (<ResgisterJjal/>);
-                break;
             case "인기 짤방":
                 return (<PopularJjals/>);
-                break;
             case "짤방 검색":
                 return (<FoundJjals/>);
-                break;
             case "만든이":
                 return (<WhoMake/>);
-                break;
+            default :
+                return (<CurrentJjals/>);
         }
     }
 
