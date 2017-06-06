@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton';
 import FacebookLogin from 'react-facebook-login';
 import AlertContainer from 'react-alert'
-
+import facebookAuth from './facebookAuth.json'
 
 export default class Auth extends Component {
 
@@ -157,7 +157,7 @@ export default class Auth extends Component {
                                 label="로그인 / 회원가입"/>
 
                             <FacebookLogin
-                                appId="1922219037991500"
+                                appId={facebookAuth.appId}
                                 autoLoad={true}
                                 fields="name,email,picture"
                                 cssClass="facebook-login"
