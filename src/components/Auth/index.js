@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import './style.css';
 
-import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton';
 import FacebookLogin from 'react-facebook-login';
@@ -127,12 +126,12 @@ export default class Auth extends Component {
                     top: '50%', left: '50%',
                     marginTop: -this.state.formHeight / 2, marginLeft: -this.state.formWidth / 2
                 }}>
-                    <Card style={{maxWidth: 400, margin: 'auto', padding: 30}}>
-                        <CardTitle className="logo" title="겟짤"/>
-                        <CardText>
-                            자신만의 짤방을 수집하고 다른 사람들과 공유해보세요!
-                        </CardText>
-                        <CardActions style={{width: 300, margin: 'auto'}}>
+                    <div style={{maxWidth: 300, margin: 'auto', padding: 30}}>
+                        <h1 className="logo">겟짤</h1>
+                        <h3>
+                            자신만의 짤방을 수집하고 공유해보세요!
+                        </h3>
+                        <div style={{width: 300, margin: 'auto'}}>
                             <TextField
                                 style={{width: 300}}
                                 onChange={this.onIdChange.bind(this)}
@@ -164,8 +163,8 @@ export default class Auth extends Component {
                                 textButton="페이스북으로 로그인"
                                 callback={this.responseFacebook.bind(this)}
                             />
-                        </CardActions>
-                    </Card>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

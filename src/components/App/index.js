@@ -100,6 +100,10 @@ class App extends Component {
         }
 
     }
+    onClickLogo(){
+        sessionStorage.setItem('menuName', "내 짤방");
+        this.setState({menuName: "내 짤방"});
+    }
 
     render() {
 
@@ -107,7 +111,8 @@ class App extends Component {
         return (
             <div className="App">
                 <AlertContainer ref={a => this.msg = a}{...this.alertOptions}/>
-                <Header onClickFind={this.onClickFind.bind(this)}
+                <Header onClickLogo={this.onClickLogo.bind(this)}
+                        onClickFind={this.onClickFind.bind(this)}
                         menuName={this.state.menuName}
                         username={this.state.userInfo.username}
                         history={this.props.history}

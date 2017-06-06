@@ -36,7 +36,8 @@ export default class Header extends Component {
                 textAlign: 'left', zIndex: 999,
                 backgroundColor: 'white'
             }}>
-                <div className="logo" style={{fontSize: 50, margin: '12px 0 0 20px'}}>
+                <div onClick={this.props.onClickLogo} className="logo"
+                     style={{fontSize: 50, margin: '12px 0 0 20px',cursor:'pointer'}}>
                     겟짤<span style={{fontSize: 20, margin: '0 0 0 10px',}}>_ {this.props.menuName}</span>
                 </div>
                 <div className="find_button"
