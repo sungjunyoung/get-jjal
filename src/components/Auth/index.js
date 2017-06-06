@@ -54,7 +54,6 @@ export default class Auth extends Component {
                 body: JSON.stringify(response)
             }).then((response) => response.json())
                 .then((response) => {
-                    console.log(response);
                     if (response.code === 'SUCCESS') {
                         sessionStorage.setItem("userId", response.userId);
                         sessionStorage.setItem("menuName", "내 짤방");
@@ -96,7 +95,6 @@ export default class Auth extends Component {
             body: JSON.stringify(userInfo)
         }).then((response) => response.json())
             .then((response) => {
-                console.log(response);
                 if (response.code === 'SUCCESS') {
                     sessionStorage.setItem("userId", response.userId);
                     sessionStorage.setItem("menuName", "내 짤방");

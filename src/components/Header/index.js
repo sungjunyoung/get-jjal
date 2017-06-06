@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Menu from '../Menu'
 import CloseButton from 'material-ui/svg-icons/navigation/close'
 import HambugButton from 'material-ui/svg-icons/image/dehaze'
+import SearchButton from 'material-ui/svg-icons/action/search'
 
 import './style.css';
 
@@ -23,6 +24,10 @@ export default class Header extends Component {
         this.setState({onHambug: false});
     }
 
+    onClickFind(){
+        this.props.onClickFind();
+    }
+
     render() {
         return (
             <div className="Header" style={{
@@ -31,20 +36,28 @@ export default class Header extends Component {
                 textAlign: 'left', zIndex: 999,
                 backgroundColor: 'white'
             }}>
-                <div className="logo" style={{
-                    fontSize: 50, margin: '12px 0 0 20px'
-                }}>
-                    겟짤
-                    <span style={{
-                        fontSize: 20, margin: '0 0 0 10px',
-                    }}>_ {this.props.menuName}</span>
+                <div className="logo" style={{fontSize: 50, margin: '12px 0 0 20px'}}>
+                    겟짤<span style={{fontSize: 20, margin: '0 0 0 10px',}}>_ {this.props.menuName}</span>
                 </div>
-                <div className="hambug_button"
-                     style={{
-                         position: 'fixed', height: 40, width: 40,
-                         right: 0, top: 0, margin: '20px 20px 0 0', zIndex: 999,
-                         cursor: 'pointer'
-                     }}>
+                <div className="find_button"
+                     onClick={this.onClickFind.bind(this)} style={{
+                    position: 'fixed', height: 40, width: 40,
+                    right: 45, top: 0, margin: '20px 20px 0 0', zIndex: 999,
+                    cursor: 'pointer'
+                }}>
+                    <SearchButton
+                        color="black"
+                        style={{
+                            width: 40, height: 40
+                        }}
+                    />
+                </div>
+
+                <div className="hambug_button" style={{
+                    position: 'fixed', height: 40, width: 40,
+                    right: 0, top: 0, margin: '20px 20px 0 0', zIndex: 999,
+                    cursor: 'pointer'
+                }}>
 
                     {this.state.onHambug ?
                         <CloseButton color="white"
@@ -53,10 +66,10 @@ export default class Header extends Component {
                                          width: 40, height: 40, float: 'right'
                                      }}/> :
                         <HambugButton color="black"
-                                     onClick={this.onHambugClick.bind(this)}
-                                     style={{
-                                         width: 40, height: 40, float: 'right'
-                                     }}/>}
+                                      onClick={this.onHambugClick.bind(this)}
+                                      style={{
+                                          width: 40, height: 40, float: 'right'
+                                      }}/>}
 
                 </div>
 

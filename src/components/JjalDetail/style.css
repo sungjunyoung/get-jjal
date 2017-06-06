@@ -7,10 +7,12 @@
     font-family: BMDOHYEON;
     color: white;
     margin-bottom:10px;
+    font-size: 12px;
 }
 
 .jjalInfo.desc{
     font-family: BMDOHYEON;
+    font-size: 12px;
 }
 
 .jjalInfo.desc > a:visited {
@@ -25,7 +27,7 @@
 }
 
 .userLikeCount{
-    font-size: 40px;
+    font-size: 30px;
     color: white;
     font-family: BMDOHYEON;
     float:right;

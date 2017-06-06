@@ -108,7 +108,7 @@ export default class JjalContainer extends Component {
             containerWidth = this.state.windowWidth / 4 - 21;
         } else if (this.state.windowWidth > 800) {
             containerWidth = this.state.windowWidth / 3 - 21;
-        } else if (this.state.windowWidth > 400) {
+        } else if (this.state.windowWidth > 360) {
             containerWidth = this.state.windowWidth / 2 - 21;
         } else {
             containerWidth = this.state.windowWidth - 11;
@@ -161,9 +161,9 @@ export default class JjalContainer extends Component {
                         </div>
                         <div style={{
                             height: 29,
-                            paddingTop: 5,
+                            paddingTop: 8,
                             width: '60%', textAlign: 'right',
-                            float: 'left'
+                            float: 'left', fontSize: 12
                         }}>
                             {this.state.username}
                         </div>

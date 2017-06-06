@@ -103,7 +103,6 @@ export default class JjalDetail extends Component {
     }
 
     render() {
-        console.log(this.state.userInfo);
         return (
             <div className="JjalDetail"
                  style={{
@@ -150,16 +149,16 @@ export default class JjalDetail extends Component {
                         <span className="jjalInfo desc"> <a href={this.props.jjal.src}>{this.props.jjal.src}</a></span></div>
                     <div style={{
                         position: 'absolute', bottom: 20,
-                        right: 20, width: 120, height: 40
+                        right: 20, width: 90, height: 30
                     }}>
                         {this.state.isLike ?
                             <Star color="white" onClick={this.onLike.bind(this)} style={{
-                                width: 40, height: 40,
+                                width: 30, height: 30,
                                 float: 'left'
                             }}/>
                             :
                             <StarBorder color="white" onClick={this.onLike.bind(this)} style={{
-                                width: 40, height: 40,
+                                width: 30, height: 30,
                                 float: 'left'
                             }}/>
                         }

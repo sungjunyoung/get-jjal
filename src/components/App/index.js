@@ -9,6 +9,9 @@ import CurrentJjals from '../CurrentJjals';
 import MyJjals from "../MyJjals";
 import ResgisterJjal from '../RegisterJjal'
 import PopularJjals from "../PopularJjals/index";
+import {TextField} from "material-ui";
+import FoundJjals from "../FoundJjals/index";
+import WhoMake from "../WhoMake/index";
 
 class App extends Component {
 
@@ -18,6 +21,7 @@ class App extends Component {
             userId: sessionStorage.getItem('userId'),
             menuName: sessionStorage.getItem('menuName'),
             userInfo: {},
+            onFind: false
         };
     }
 
@@ -57,8 +61,8 @@ class App extends Component {
             });
     }
 
-    selectView(){
-        switch(this.state.menuName){
+    selectView() {
+        switch (this.state.menuName) {
             case "최근 짤방":
                 return (<CurrentJjals/>);
                 break;
@@ -71,26 +75,44 @@ class App extends Component {
             case "인기 짤방":
                 return (<PopularJjals/>);
                 break;
-            default:
-                return(<div/>);
+            case "짤방 검색":
+                return (<FoundJjals/>);
+                break;
+            case "만든이":
+                return (<WhoMake/>);
                 break;
         }
     }
 
-    onMenuChange(menuName){
-        this.setState({menuName: menuName});
+    onMenuChange(menuName) {
         sessionStorage.setItem('menuName', menuName);
+        this.setState({menuName: menuName});
+    }
+
+    onClickFind() {
+        let onFind = this.state.onFind;
+        onFind = !onFind;
+        this.setState({onFind: onFind});
+        if (onFind === true) {
+            this.setState({menuName: '짤방 검색'})
+        } else {
+            this.setState({menuName: sessionStorage.getItem('menuName')})
+        }
+
     }
 
     render() {
 
+
         return (
             <div className="App">
                 <AlertContainer ref={a => this.msg = a}{...this.alertOptions}/>
-                <Header menuName={this.state.menuName}
+                <Header onClickFind={this.onClickFind.bind(this)}
+                        menuName={this.state.menuName}
                         username={this.state.userInfo.username}
                         history={this.props.history}
                         onMenuChange={this.onMenuChange.bind(this)}/>
+
                 {this.selectView()}
             </div>
         );
