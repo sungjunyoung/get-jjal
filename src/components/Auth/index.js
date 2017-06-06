@@ -94,25 +94,24 @@ export default class Auth extends Component {
             body: JSON.stringify(userInfo)
         }).then((response) => response.json())
             .then((response) => {
-                if (response.code === 'SUCCESS') {
+                if (response.code === 'ID_LENGTH')
+                    component.showAlert('error', '닉네임은 6자 이상 입력해주세요!');
+                else if (response.code === 'PW_LENGTH')
+                    component.showAlert('error', '패스워드는 8자 이상 입력해주세요!');
+                else if (response.code === 'PW_INVALID')
+                    component.showAlert('error', '패스워드를 다시 확인해주세요!');
+                else if (response.code === 'DB_ERR')
+                    component.showAlert('error', '데이터베이스 에러가 발생했습니다!');
+                else if (response.code === 'SUCCESS') {
                     sessionStorage.setItem("userId", response.userId);
                     sessionStorage.setItem("menuName", "내 짤방");
                     component.props.history.push('/');
-                } else {
-                    if(response.code === 'ID_LENGTH')
-                        component.showAlert('error', '닉네임은 6자 이상 입력해주세요!');
-                    else if(response.code === 'PW_LENGTH')
-                        component.showAlert('error', '패스워드는 8자 이상 입력해주세요!');
-                    else if(response.code === 'PW_INVALID')
-                        component.showAlert('error', '패스워드를 다시 확인해주세요!');
-                    else if(response.code === 'DB_ERR')
-                        component.showAlert('error', '데이터베이스 에러가 발생했습니다!');
                 }
             });
     }
 
     onPressEnter(event) {
-        if(event.key === 'Enter'){
+        if (event.key === 'Enter') {
             this.onLogin();
         }
     }
