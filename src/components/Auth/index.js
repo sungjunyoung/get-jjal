@@ -104,7 +104,7 @@ export default class Auth extends Component {
                     component.showAlert('error', '데이터베이스 에러가 발생했습니다!');
                 else if (response.code === 'SUCCESS') {
                     sessionStorage.setItem("userId", response.userId);
-                    sessionStorage.setItem("menuName", "내 짤방");
+                    sessionStorage.setItem("menuName", "최근 짤방");
                     component.props.history.push('/');
                 }
             });
