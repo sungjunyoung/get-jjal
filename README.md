@@ -1,5 +1,7 @@
 # 겟짤
 
+## [DEMO](http://jjals.teamsixhours.com)
+
 ## INSTALL
 ```
 git clone https://github.com/sungjunyoung/get-jjal.git
