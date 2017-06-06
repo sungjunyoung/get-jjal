@@ -10,7 +10,8 @@ export default class FoundJjals extends Component {
         this.state = {
             jjals: [],
             page: 1,
-            findText: ''
+            findText: '',
+            findHintText:'태그로 짤방을 검색해보세요!'
         }
     }
 
@@ -69,7 +70,13 @@ export default class FoundJjals extends Component {
     }
 
     onFindTextChange(e) {
-        
+        if(e.target.value === ''){
+            this.setState({findHintText: '태그로 짤방을 검색해보세요!'})
+        } else {
+            this.setState({findHintText: ''})
+        }
+
+
         const findText = e.target.value;
         this.setState({findText: e.target.value});
         const component = this;
@@ -105,7 +112,7 @@ export default class FoundJjals extends Component {
                     <TextField
                         onChange={this.onFindTextChange.bind(this)}
                         value={this.state.tagTextFieldValue}
-                        hintText="태그로 짤방을 검색해보세요"
+                        hintText={this.state.findHintText}
                         fullWidth={true}
                         underlineFocusStyle={{borderColor: 'black'}}
                     />
