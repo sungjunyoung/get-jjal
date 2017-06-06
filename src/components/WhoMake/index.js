@@ -19,6 +19,9 @@ export default class WhoMake extends Component {
                     <div className="who">
                         BACKEND : 김성주
                     </div>
+                    <div className="who">
+                        서버지원 : 임병훈
+                    </div>
                 </div>
             </div>
         );
