@@ -9,8 +9,6 @@ const app = express();
 // APIs
 const users = require('../apis/users');
 const jjals = require('../apis/jjals');
-const browser = require('detect-browser');
-console.log(browser);
 
 // API Routing
 app.use('/users', users);
