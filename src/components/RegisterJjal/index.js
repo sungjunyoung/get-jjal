@@ -88,7 +88,11 @@ export default class RegisterJjal extends Component {
         }).then((response) => response.json())
             .then((response) => {
                 if (response.code === 'SUCCESS') {
-                    component.setState({isSelectType: false});
+                    component.setState({
+                        isSelectType: false, jjalSrc: '',
+                        selectType: '', tags: [], tagTextFieldValue: '',
+                        isImageNotExist: false,
+                    });
                     component.showAlert('success', '짤방을 등록했어요!');
                 }
             });
