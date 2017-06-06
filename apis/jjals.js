@@ -25,7 +25,8 @@ router.use(bodyParser.json());
 router.get('/popular', function (req, res, next) {
     var page = req.query.page - 1;
     var pagingQuery = page * 30 + ', 30';
-    mysql.query('SELECT gj_jjals.* FROM gj_user_likes JOIN gj_jjals ON gj_jjals.id = gj_user_likes.jjal_id GROUP BY jjal_id ORDER BY count(*) DESC LIMIT ' + pagingQuery)
+    mysql.query('SELECT gj_jjals.* FROM gj_user_likes JOIN gj_jjals ON gj_jjals.id = gj_user_likes.jjal_id' +
+        ' GROUP BY jjal_id ORDER BY count(*) DESC LIMIT ' + pagingQuery)
         .spread(function (rows) {
             const popular_jjals = {
                 jjals: rows

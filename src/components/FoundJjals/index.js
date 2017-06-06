@@ -42,8 +42,8 @@ export default class FoundJjals extends Component {
             }
         }).then((response) => response.json())
             .then((response) => {
-                var jjals = response.jjals;
-                component.setState({jjals: this.state.jjals.concat(jjals)});
+                var moreJjals = response.jjals;
+                component.setState({jjals: jjals.concat(moreJjals)});
             });
     }
 
