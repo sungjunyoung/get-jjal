@@ -12,6 +12,7 @@ import PopularJjals from "../PopularJjals/index";
 import {TextField} from "material-ui";
 import FoundJjals from "../FoundJjals/index";
 import WhoMake from "../WhoMake/index";
+import BrowserDetection from 'react-browser-detection';
 
 class App extends Component {
 
@@ -99,15 +100,14 @@ class App extends Component {
         }
 
     }
-    onClickLogo(){
+
+    onClickLogo() {
         localStorage.setItem('menuName', "내 짤방");
         this.setState({menuName: "내 짤방"});
     }
 
-    render() {
-
-
-        return (
+    browserHandler = {
+        chrome: () => (
             <div className="App">
                 <AlertContainer ref={a => this.msg = a}{...this.alertOptions}/>
                 <Header onClickLogo={this.onClickLogo.bind(this)}
@@ -118,7 +118,23 @@ class App extends Component {
                         onMenuChange={this.onMenuChange.bind(this)}/>
 
                 {this.selectView()}
+            </div>),
+        default: (browser) => (
+            <div className="App" style={{position: 'fixed',
+                top: '50%',left: '50%',width: 100, height: 100,
+            marginLeft: -50, marginTop: -30, fontFamily:'BMDOHYEON', fontSize:30}}>
+                크롬을 씁시다 여러분
             </div>
+        )
+    };
+
+    render() {
+
+        return (
+            <BrowserDetection>
+                {this.browserHandler}
+
+            </BrowserDetection>
         );
     }
 }
