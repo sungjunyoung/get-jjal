@@ -65,6 +65,11 @@ export default class RegisterJjal extends Component {
     }
 
     registerJjal() {
+        if (this.state.tags.length === 0) {
+            this.showAlert('error', '동규형 태그 달아주세요');
+            return;
+        }
+
         let jjalObj = {};
         jjalObj.own_user_id = localStorage.userId;
         jjalObj.src = this.state.jjalSrc;
@@ -82,7 +87,7 @@ export default class RegisterJjal extends Component {
             body: JSON.stringify(jjalObj)
         }).then((response) => response.json())
             .then((response) => {
-                if(response.code === 'SUCCESS'){
+                if (response.code === 'SUCCESS') {
                     component.setState({isSelectType: false});
                     component.showAlert('success', '짤방을 등록했어요!');
                 }

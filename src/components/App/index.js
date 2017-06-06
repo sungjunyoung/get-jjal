@@ -12,7 +12,7 @@ import PopularJjals from "../PopularJjals/index";
 import {TextField} from "material-ui";
 import FoundJjals from "../FoundJjals/index";
 import WhoMake from "../WhoMake/index";
-import BrowserDetection from 'react-browser-detection';
+const browser = require('detect-browser');
 
 class App extends Component {
 
@@ -22,7 +22,8 @@ class App extends Component {
             userId: localStorage.getItem('userId'),
             menuName: localStorage.getItem('menuName'),
             userInfo: {},
-            onFind: false
+            onFind: false,
+            isChrome: false
         };
     }
 
@@ -43,6 +44,11 @@ class App extends Component {
     }
 
     componentDidMount() {
+
+        if (browser.name === 'chrome') {
+            this.setState({isChrome: true});
+        }
+
         // 정상접근 안할때
         if (!localStorage.getItem('userId')) {
             this.props.history.push('/auth');
@@ -106,35 +112,31 @@ class App extends Component {
         this.setState({menuName: "내 짤방"});
     }
 
-    browserHandler = {
-        chrome: () => (
-            <div className="App">
-                <AlertContainer ref={a => this.msg = a}{...this.alertOptions}/>
-                <Header onClickLogo={this.onClickLogo.bind(this)}
-                        onClickFind={this.onClickFind.bind(this)}
-                        menuName={this.state.menuName}
-                        username={this.state.userInfo.username}
-                        history={this.props.history}
-                        onMenuChange={this.onMenuChange.bind(this)}/>
-
-                {this.selectView()}
-            </div>),
-        default: (browser) => (
-            <div className="App" style={{position: 'fixed',
-                top: '50%',left: '50%',width: 100, height: 100,
-            marginLeft: -50, marginTop: -30, fontFamily:'BMDOHYEON', fontSize:30}}>
-                크롬을 씁시다 여러분
-            </div>
-        )
-    };
-
     render() {
 
         return (
-            <BrowserDetection>
-                {this.browserHandler}
 
-            </BrowserDetection>
+            <div className="App">
+                { this.state.isChrome ?
+                    <div>
+                        <AlertContainer ref={a => this.msg = a}{...this.alertOptions}/>
+                        <Header onClickLogo={this.onClickLogo.bind(this)}
+                                onClickFind={this.onClickFind.bind(this)}
+                                menuName={this.state.menuName}
+                                username={this.state.userInfo.username}
+                                history={this.props.history}
+                                onMenuChange={this.onMenuChange.bind(this)}/>
+                        {this.selectView()}
+                    </div>:
+                    <div className="App" style={{
+                        position: 'fixed',
+                        top: '50%', left: '50%', width: 100, height: 100,
+                        marginLeft: -50, marginTop: -30, fontFamily: 'BMDOHYEON', fontSize: 30
+                    }}>
+                        크롬을 씁시다 여러분
+                    </div>
+                }
+            </div>
         );
     }
 }
