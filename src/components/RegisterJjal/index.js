@@ -91,7 +91,7 @@ export default class RegisterJjal extends Component {
                     component.setState({
                         isSelectType: false, jjalSrc: '',
                         selectType: '', tags: [], tagTextFieldValue: '',
-                        isImageNotExist: false,
+                        isImageNotExist: false, isTagView: false,
                     });
                     component.showAlert('success', '짤방을 등록했어요!');
                 }
