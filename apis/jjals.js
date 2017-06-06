@@ -56,7 +56,7 @@ router.get('/tags', function (req, res, next) {
     mysql.query('SELECT gj_jjals.* FROM gj_tags ' +
         'JOIN gj_jjal_tags ON gj_tags.id = gj_jjal_tags.tag_id ' +
         'JOIN gj_jjals ON gj_jjal_tags.jjal_id = gj_jjals.id  ' +
-        'WHERE name LIKE \'%' + req.query.tagName + '%\' GROUP BY gj_jjals.id LIMIT ' + pagingQuery)
+        'WHERE name LIKE \'%' + req.query.tagName + '%\' GROUP BY gj_jjals.id ORDER BY created_at DESC LIMIT ' + pagingQuery)
         .spread(function (rows) {
             const found_jjals = {
                 jjals: rows
