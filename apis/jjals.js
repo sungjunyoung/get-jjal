@@ -63,11 +63,11 @@ router.get('/tags', function (req, res, next) {
                 jjals: rows
             };
 
-            // if (req.query.tagName === '') {
-            //     res.json({jjals: []});
-            // } else {
+            if (req.query.tagName === '') {
+                res.json({jjals: []});
+            } else {
                 res.json(found_jjals);
-            // }
+            }
 
         });
 });
