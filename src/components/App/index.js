@@ -45,7 +45,8 @@ class App extends Component {
 
     componentDidMount() {
 
-        if (browser.name === 'chrome') {
+        if (browser.name.indexOf('chrome') !== -1 ||
+            browser.name.indexOf('safari') !== -1 ) {
             this.setState({isChrome: true});
         }
 
