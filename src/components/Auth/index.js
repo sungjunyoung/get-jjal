@@ -36,6 +36,7 @@ export default class Auth extends Component {
     }
 
     componentDidMount() {
+
         let {clientHeight, clientWidth} = this.refs.form;
         this.setState({formHeight: clientHeight, formWidth: clientWidth})
     }

@@ -21,6 +21,7 @@ export default class Menu extends Component {
     logout(){
         localStorage.clear();
         sessionStorage.clear();
+        window.location.reload();
         this.props.history.push('/auth');
     }
 
