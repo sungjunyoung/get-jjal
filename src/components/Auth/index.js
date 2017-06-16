@@ -99,14 +99,22 @@ export default class Auth extends Component {
             body: JSON.stringify(userInfo)
         }).then((response) => response.json())
             .then((response) => {
-                if (response.code === 'ID_LENGTH')
+                if (response.code === 'ID_LENGTH') {
                     component.showAlert('error', '닉네임은 6자 이상 입력해주세요!');
-                else if (response.code === 'PW_LENGTH')
+                    return;
+                }
+                else if (response.code === 'PW_LENGTH') {
                     component.showAlert('error', '패스워드는 8자 이상 입력해주세요!');
-                else if (response.code === 'PW_INVALID')
+                    return;
+                }
+                else if (response.code === 'PW_INVALID') {
                     component.showAlert('error', '패스워드를 다시 확인해주세요!');
-                else if (response.code === 'DB_ERR')
+                    return;
+                }
+                else if (response.code === 'DB_ERR') {
                     component.showAlert('error', '데이터베이스 에러가 발생했습니다!');
+                    return;
+                }
                 else if (response.code === 'SUCCESS') {
                     localStorage.setItem("userId", response.userId);
                     localStorage.setItem("menuName", "최근 짤방");
