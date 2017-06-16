@@ -14,10 +14,10 @@ export default class WhoMake extends Component {
 
                 }}>
                     <div className="who">
-                        FRONTEND : 성준영
+                        2012104095 성준영
                     </div>
                     <div className="who">
-                        BACKEND : 김성주
+                        2013104059 김성주
                     </div>
                     <div className="who">
                         서버지원 : 임병훈
